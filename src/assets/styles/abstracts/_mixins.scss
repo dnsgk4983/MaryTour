@@ -1,0 +1,56 @@
+@use 'sass:math';
+@use 'functions' as fn;
+@use 'variables' as *;
+
+// PC: 480px 컨테이너 기준 px
+// 모바일: 화면 너비 기준 vw
+@mixin vw($property, $values, $width: $design-width) {
+    $result: ();
+
+    @each $value in $values {
+        @if type-of($value) == 'number' and unit($value) == 'px' {
+            $result: append(
+                $result,
+                math.div($value, $width) * $mobile-width,
+                space
+            );
+        } @else {
+            $result: append($result, $value, space);
+        }
+    }
+
+    #{$property}: $result;
+
+    @media (max-width: $mobile-width) {
+        #{$property}: fn.vw-values($values, $width);
+    }
+}
+
+// Flex
+@mixin flex($justify: center, $align: center, $gap: 0) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+// Grid
+@mixin grid($columns: 2, $gap: 0) {
+    display: grid;
+    grid-template-columns: repeat($columns, minmax(0, 1fr));
+    gap: $gap;
+}
+
+// 절대 중앙 정렬
+@mixin center {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+// 모바일 미디어쿼리
+@mixin mobile {
+    @media (max-width: $mobile-width) {
+        @content;
+    }
+}

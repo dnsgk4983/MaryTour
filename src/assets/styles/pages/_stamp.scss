@@ -1,0 +1,73 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+.stamp {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: $color-cream;
+  &__header {
+    position: absolute;
+    z-index: 2;
+    @include vw(top, 80px);
+    @include vw(left, 60px);
+    @include vw(right, 60px);
+    text-align: center;
+  }
+
+  &__title {
+    @include vw(font-size, 52px);
+    font-weight: 700;
+  }
+
+  &__description {
+    @include vw(margin-top, 24px);
+    @include vw(font-size, 30px);
+    line-height: 1.5;
+  }
+
+  &__visual {
+    position: absolute;
+    @include vw(top, 350px);
+    @include vw(left, 215px);
+    @include vw(width, 650px);
+    aspect-ratio: 1;
+    @include flex;
+    img {
+      @include vw(width, 650px);
+      @include vw(height, 650px);
+      object-fit: contain;
+    }
+  }
+
+  &__status {
+    position: absolute;
+    @include vw(top, 1240px);
+    @include vw(left, 0);
+    @include vw(right, 0);
+    @include vw(font-size, 32px);
+    font-weight: 600;
+    text-align: center;
+    &--success {
+      color: #43865a;
+    }
+    &--error {
+      color: #c65b5b;
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    @include vw(left, 60px);
+    @include vw(right, 60px);
+    @include vw(top, 1500px);
+    @include flex;
+    flex-direction: column;
+    @include vw(gap, 24px);
+  }
+
+  &__loading {
+    @include flex;
+    @include vw(gap, 16px);
+    @include vw(font-size, 28px);
+  }
+}

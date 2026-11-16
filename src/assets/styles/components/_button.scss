@@ -1,0 +1,43 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+.button {
+  @include flex;
+  position: relative;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+.button--image {
+  display: inline-flex;
+  img {
+    display: block;
+    height: auto;
+  }
+}
+
+.button--primary {
+  @include vw(padding, 24px 40px);
+  @include vw(border-radius, 20px);
+  @include vw(font-size, 36px);
+  background: $color-primary;
+  color: $color-brown;
+  font-weight: 700;
+  transition: opacity $transition-duration ease;
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+  }
+}

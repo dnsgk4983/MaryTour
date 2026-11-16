@@ -1,0 +1,48 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+.modal {
+  position: absolute;
+  inset: 0;
+  z-index: $z-modal;
+  @include flex;
+  @include vw(padding, 40px);
+  background: rgba(0, 0, 0, 0.5);
+  &__content {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    @include vw(padding, 60px 40px);
+    @include vw(border-radius, 32px);
+    background: $color-white;
+    text-align: center;
+  }
+
+  &__title {
+    @include vw(font-size, 48px);
+    font-weight: 700;
+  }
+
+  &__description {
+    @include vw(margin-top, 24px);
+    @include vw(font-size, 32px);
+    line-height: 1.5;
+  }
+
+  &__actions {
+    @include flex;
+    @include vw(gap, 20px);
+    @include vw(margin-top, 48px);
+  }
+
+  &__close {
+    position: absolute;
+    @include vw(top, 20px);
+    @include vw(right, 20px);
+    @include vw(width, 48px);
+    @include vw(height, 48px);
+    @include flex;
+    color: $color-brown;
+    cursor: pointer;
+  }
+}

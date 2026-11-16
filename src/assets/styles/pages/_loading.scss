@@ -1,0 +1,96 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+.loading {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: $color_cream;
+
+    &__background {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+    }
+
+    &__thread {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 1;
+
+        @include vw(top, 570px);
+        @include vw(width, 900px);
+
+        height: auto;
+        margin: 0 auto;
+        pointer-events: none;
+    }
+
+    &__sparkle {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 3;
+
+        @include vw(top, 550px);
+        @include vw(width, 900px);
+
+        height: auto;
+        margin: 0 auto;
+        pointer-events: none;
+    }
+
+    &__button {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 2;
+
+        @include vw(top, 650px);
+        @include vw(width, 550px);
+
+        height: auto;
+        margin: 0 auto;
+        pointer-events: none;
+    }
+
+    &__text {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 4;
+
+        @include vw(top, 1500px);
+        @include vw(width, 780px);
+        @include vw(font-size, 48px);
+
+        margin: 0 auto;
+        color: #754b32;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: center;
+        white-space: nowrap;
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+        pointer-events: none;
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+
+        background-color: $color_cream;
+        opacity: 0;
+        pointer-events: none;
+    }
+}

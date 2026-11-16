@@ -1,0 +1,26 @@
+@use '../abstracts/variables' as *;
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: #332b2a;
+  color: $color-brown;
+  font-family: $font-family;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+:focus-visible {
+  outline: 2px solid $color-gold;
+  outline-offset: 3px;
+}
+::selection {
+  background: $color-primary;
+  color: $color-brown;
+}

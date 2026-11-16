@@ -1,0 +1,19 @@
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.screen_layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    &__front {
+        z-index: 2;
+    }
+}

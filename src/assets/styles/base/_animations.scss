@@ -1,0 +1,43 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floating {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -10px;
+  }
+}
+
+@keyframes pulse {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.05;
+  }
+}
+
+@keyframes sway {
+  from {
+    rotate: -3deg;
+  }
+  to {
+    rotate: 3deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

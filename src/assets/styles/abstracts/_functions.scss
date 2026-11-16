@@ -1,0 +1,38 @@
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:list';
+@use 'variables' as *;
+
+// px → vw 변환
+@function to-vw($value, $width: $design-width) {
+    @if meta.type-of($value) == 'number' {
+        @if $value == 0 {
+            @return 0;
+        }
+
+        @if math.is-unitless($value) {
+            @return math.div($value * 1px, $width) * 100vw;
+        }
+
+        @if math.unit($value) == 'px' {
+            @return math.div($value, $width) * 100vw;
+        }
+    }
+
+    @return $value;
+}
+
+// 여러 값 변환
+@function vw-values($values, $width: $design-width) {
+    $result: ();
+
+    @each $value in $values {
+        $result: list.append(
+            $result,
+            to-vw($value, $width),
+            $separator: space
+        );
+    }
+
+    @return $result;
+}

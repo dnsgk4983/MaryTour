@@ -1,3 +1,4 @@
+
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -9,20 +10,32 @@ import button from '../assets/images/ui_button_primary.png';
 
 gsap.registerPlugin(useGSAP);
 
-const stamp_numbers = [1, 2, 3];
+const stamp_ids = [
+    'bupyeong',
+    'daerim',
+    'guro',
+];
+
+const reward_storage_key = 'marytour_reward_claimed';
 
 export default function HomePage({
     collectedStamps = [],
     onCheckStamp = () => {},
+    onClaimReward = () => {},
 }) {
     const container_ref = useRef(null);
     const header_ref = useRef(null);
     const panel_ref = useRef(null);
     const button_ref = useRef(null);
 
-    const collected_count = stamp_numbers.filter(
-        (number) => collectedStamps.includes(number)
+    const collected_count = stamp_ids.filter(
+        (stamp_id) => collectedStamps.includes(stamp_id)
     ).length;
+
+    const is_complete = collected_count === stamp_ids.length;
+
+    const is_reward_claimed =
+        localStorage.getItem(reward_storage_key) === 'true';
 
     useGSAP(
         () => {
@@ -62,6 +75,17 @@ export default function HomePage({
         }
     );
 
+    function handle_button_click() {
+        if (!is_complete) {
+            onCheckStamp();
+            return;
+        }
+
+        if (!is_reward_claimed) {
+            onClaimReward();
+        }
+    }
+
     return (
         <main className="home" ref={container_ref}>
             <img
@@ -80,7 +104,9 @@ export default function HomePage({
                 </h1>
 
                 <p className="home__description">
-                    잃어버린 단추 3개를 찾아주세요!
+                    {is_complete
+                        ? '단추를 모두 모았어요!'
+                        : '잃어버린 단추 3개를 찾아주세요!'}
                 </p>
             </header>
 
@@ -96,17 +122,18 @@ export default function HomePage({
                 />
 
                 <div className="home__stamp_grid">
-                    {stamp_numbers.map((number) => {
-                        const is_collected = collectedStamps.includes(number);
+                    {stamp_ids.map((stamp_id, index) => {
+                        const is_collected = collectedStamps.includes(stamp_id);
+                        const stamp_number = index + 1;
 
                         return (
                             <div
                                 className="home__stamp_item"
-                                key={number}
+                                key={stamp_id}
                                 aria-label={
                                     is_collected
-                                        ? `${number}번 단추 수집 완료`
-                                        : `${number}번 단추 미수집`
+                                        ? `${stamp_number}번 단추 수집 완료`
+                                        : `${stamp_number}번 단추 미수집`
                                 }
                             >
                                 {is_collected && (
@@ -129,7 +156,8 @@ export default function HomePage({
                 className="home__check_button"
                 ref={button_ref}
                 type="button"
-                onClick={onCheckStamp}
+                onClick={handle_button_click}
+                disabled={is_complete && is_reward_claimed}
             >
                 <img
                     src={button}
@@ -137,7 +165,11 @@ export default function HomePage({
                 />
 
                 <span className="home__check_text">
-                    QR 코드 인증하기
+                    {is_reward_claimed && is_complete
+                        ? '특전 수령 완료'
+                        : is_complete
+                            ? '특전 받기'
+                            : 'QR 코드 인증하기'}
                 </span>
             </button>
         </main>
